@@ -4,6 +4,7 @@
   --light-primary-color: #B2EBF2;
   --text-primary-color: #FFFFFF;
   --accent-color: #FFEB3B;
+  --second-accent-color: #FF9800;
   --primary-text-color: #212121;
   --secondary-text-color: #757575;
   --divider-color: #BDBDBD;
@@ -14,10 +15,13 @@ font-family: 'Megrim', cursive;
 font-family: 'Codystar', cursive;
 font-family: 'Londrina Outline', cursive;
 font-family: 'Inconsolata', monospace;
+font-family: 'Muli', sans-serif;
 */
 
 body {
+  font-family: 'Muli', sans-serif;
   margin: auto;
+  letter-spacing: 1px;
 }
 
 .wrapper {
@@ -27,11 +31,113 @@ body {
   justify-content: space-between;
   min-height: 100vh;
   background: var(--default-primary-color);
-
+  color: var(--text-primary-color);
 }
 
-.wrapper h1 {
+h1 {
   font-family: 'CodyStar', cursive;
   font-size: 60px;
   padding: 20px;
+}
+
+.timer {
+  border-radius: 50%;
+  border: 10px dotted var(--accent-color);
+  font-size: 72px;
+  padding: 10%;
+}
+
+.controls {
+  /*border: 2px solid red;*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.controls > div {
+  margin: 20px;
+}
+
+.controls h4 {
+  margin-bottom: 5px;
+}
+
+.break {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.break-control {
+  display: flex;
+  flex-direction: row;
+}
+
+.session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.session-control {
+  display: flex;
+  flex-direction: row;
+}
+
+.set-time {
+  font-size: 18px;
+  margin: 0 5px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  margin: 0 5px;
+  color: var(--text-primary-color);
+  font-size: 18px;
+  transition: all .08s;
+}
+
+button:active {
+  transform:scale(1.8);
+}
+
+.footer {
+  font-size: 18px;
+  margin: 40px 0 40px 0;
+}
+
+.footer > a {
+  text-decoration: none;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.footer > a:hover {
+  transition: 0.2s;
+  text-decoration: none;
+  color: #00FF00;
+  margin-top: 30px;
+  text-shadow: 30px 30px 0 #9400D3, 20px 20px 0 #4B0082, 10px 10px 0 #0000FF, -10px -10px 0 #FFFF00, -20px -20px 0 #FF7F00, -30px -30px 0 #FF0000;
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.4em;
+  }
+
+  .footer {
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 768px) {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  .footer {
+    font-size: 0.9em;
+  }
 }
