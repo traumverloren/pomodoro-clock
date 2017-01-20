@@ -106,7 +106,8 @@ h1 {
 
 .set-time {
   font-size: 18px;
-  margin: 0 5px;
+  text-align: center;
+  width: 25px;
 }
 
 button {
@@ -120,7 +121,7 @@ button {
 }
 
 button:active {
-  transform:scale(1.8);
+  transform:scale(2);
 }
 
 .footer {

@@ -20,7 +20,6 @@ const time = sessionTime * 60;
 updateDisplay(time,'Session');
 
 function updateBreak() {
-  if (isActive) {return;}
   if (this.value === 'increase') {
     breakTime++;
   } if (this.value === 'decrease' && breakTime > 1) {
@@ -44,8 +43,11 @@ function updateSession() {
 function toggleTimer() {
   isActive = !isActive;
   if (isActive) {
+    buttons.forEach(button => button.disabled = true);
     startTimer();
+
   } else {
+    buttons.forEach(button => button.disabled = false);
     clearInterval(timeInterval);
     const sessionSeconds = sessionTime * 60;
     updateDisplay(sessionSeconds, 'Session');
