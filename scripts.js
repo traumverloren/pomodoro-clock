@@ -4,19 +4,23 @@ const sessionButtons = document.querySelectorAll('.session-button');
 const breakInput = document.querySelector('.break-value');
 const sessionInput = document.querySelector('.session-value');
 const timer = document.querySelector('.timer');
+const timerType = document.querySelector('.timer-type');
 
 let sessionTime = 25;
 let breakTime = 5;
+let isActive = false;
+let timeInterval;
 
 // set initial break and session values
 breakInput.innerHTML = breakTime;
 sessionInput.innerHTML = sessionTime;
 
 // set pomodoro timer value
-const sessionMicroSeconds = sessionTime * 60 * 1000;
-updateDisplay(sessionMicroSeconds);
+const time = sessionTime * 60;
+updateDisplay(time,'Session');
 
 function updateBreak() {
+  if (isActive) {return;}
   if (this.value === 'increase') {
     breakTime++;
   } if (this.value === 'decrease' && breakTime > 1) {
@@ -26,51 +30,82 @@ function updateBreak() {
 }
 
 function updateSession() {
+  if (isActive) {return;}
   if (this.value === 'increase') {
     sessionTime++;
   } if (this.value === 'decrease' && sessionTime > 1) {
     sessionTime--;
   }
   sessionInput.textContent = sessionTime;
-  const sessionMicroSeconds = sessionTime * 60 * 1000;
-  updateDisplay(sessionMicroSeconds);
+  const sessionSeconds = sessionTime * 60;
+  updateDisplay(sessionSeconds, 'Session');
+}
 
+function toggleTimer() {
+  isActive = !isActive;
+  if (isActive) {
+    startTimer();
+  } else {
+    clearInterval(timeInterval);
+    const sessionSeconds = sessionTime * 60;
+    updateDisplay(sessionSeconds, 'Session');
+    return;
+  }
 }
 
 function startTimer() {
   const sessionSeconds = Math.floor(sessionTime * 60);
   const now = new Date().getTime();
-  const endTime = now + (sessionSeconds*1000);
+  const endTime = (now / 1000) + (sessionSeconds);
 
-  // need to do a setInterval and countdown the session time
-  // when the session timer is 0, switch to break.
-  // keep looping.
-  const timeInterval = setInterval(() => {
-    const timeRemaining = countDown(endTime);
+  timeInterval = setInterval(() => {
+    timeRemaining = Math.ceil(countDown(endTime));
+    console.log(timeRemaining);
+
     if (timeRemaining <= 0) {
       clearInterval(timeInterval);
+      startBreakTimer();
     }
-    updateDisplay(timeRemaining);
+    updateDisplay(timeRemaining, 'Session');
+  }, 1000);
+}
+
+function startBreakTimer() {
+  const breakSeconds = Math.floor(breakTime * 60);
+  const now = new Date().getTime();
+  const endTime = (now / 1000) + (breakSeconds);
+
+  timeInterval = setInterval(() => {
+    const timeRemaining = Math.ceil(countDown(endTime));
+    console.log(timeRemaining);
+
+    if (timeRemaining <= 0) {
+      clearInterval(timeInterval);
+      startTimer();
+    }
+    updateDisplay(timeRemaining, 'Break');
   }, 1000);
 }
 
 function countDown(time) {
   const now = new Date().getTime();
-  const timeRemaining = time - now;
+  const timeRemaining = Math.max(0, time - (now / 1000));
   return timeRemaining;
 }
 
-function updateDisplay(timeRemaining) {
-  const seconds = Math.floor((timeRemaining / 1000 % 60));
-  const minutes = Math.floor((timeRemaining / (60 * 1000)) % 60 );
+function updateDisplay(timeRemaining, type) {
+  const seconds = Math.floor((timeRemaining % 60));
+  const minutes = Math.floor((timeRemaining / 60) % 60 );
   timer.textContent = `${minutes}:${formatSeconds(seconds)}`
+  timer.textContent = `${minutes}:${formatSeconds(seconds)}`
+  timerType.textContent = type;
 }
 
-  function formatSeconds(seconds) {
-    return (seconds < 10) ? `0${seconds}` : seconds;
-  }
+function formatSeconds(seconds) {
+  return (seconds < 10) ? `0${seconds}` : seconds;
+}
 
 buttons.forEach(button => button.addEventListener('mousedown', (e => e.preventDefault())));
 breakButtons.forEach(button => button.addEventListener('click', updateBreak));
 sessionButtons.forEach(button => button.addEventListener('click', updateSession));
-timer.addEventListener('click', startTimer);
+timer.addEventListener('click', toggleTimer);

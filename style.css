@@ -41,14 +41,17 @@ h1 {
 
 .timer {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100%;
   text-align: center;
+}
+
+.timer-type {
+  font-size: 18px;
 }
 
 .timer-circle {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 200px;
