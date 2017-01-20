@@ -59,13 +59,15 @@ function startTimer() {
   const sessionSeconds = Math.floor(sessionTime * 60);
   const now = new Date().getTime();
   const endTime = (now / 1000) + (sessionSeconds);
+  const audio = new Audio("sound/alarm_beep.wav");
 
   timeInterval = setInterval(() => {
     timeRemaining = Math.ceil(countDown(endTime));
-    console.log(timeRemaining);
 
     if (timeRemaining <= 0) {
       clearInterval(timeInterval);
+      audio.currentTime = 0;
+      audio.play();
       startBreakTimer();
     }
     updateDisplay(timeRemaining, 'Session');
@@ -79,7 +81,6 @@ function startBreakTimer() {
 
   timeInterval = setInterval(() => {
     const timeRemaining = Math.ceil(countDown(endTime));
-    console.log(timeRemaining);
 
     if (timeRemaining <= 0) {
       clearInterval(timeInterval);
