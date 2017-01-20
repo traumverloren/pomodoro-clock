@@ -91,6 +91,9 @@ h1 {
 .break-control {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .session {
@@ -102,6 +105,8 @@ h1 {
 .session-control {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .set-time {
@@ -126,7 +131,7 @@ button:active {
 
 .footer {
   font-size: 18px;
-  padding: 40px 0 40px 0;
+  padding: 30px 0 30px 0;
 }
 
 .footer > a {
@@ -141,6 +146,38 @@ button:active {
   color: #00FF00;
   margin-top: 30px;
   text-shadow: 30px 30px 0 #9400D3, 20px 20px 0 #4B0082, 10px 10px 0 #0000FF, -10px -10px 0 #FFFF00, -20px -20px 0 #FF7F00, -30px -30px 0 #FF0000;
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .timer-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 16px;
+    margin: 0;
+    border: 5px dotted var(--accent-color);
+  }
+
+  .timer-type {
+    font-size: 12px;
+  }
+
+  .controls > div {
+    margin: 5px;
+  }
+
+  .controls h4 {
+    font-size: 14px;
+  }
+
+  .set-time {
+    font-size: 14px;
+    text-align: center;
+    width: 15px;
+  }
+
+  button {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 400px) {
