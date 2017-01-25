@@ -56,6 +56,8 @@ function toggleTimer() {
 }
 
 function startTimer() {
+  clearInterval(timeInterval);
+
   const sessionSeconds = Math.floor(sessionTime * 60);
   const now = Date.now();
   const endTime = (now / 1000) + (sessionSeconds);
@@ -75,6 +77,8 @@ function startTimer() {
 }
 
 function startBreakTimer() {
+  clearInterval(timeInterval);
+
   const breakSeconds = Math.floor(breakTime * 60);
   const now = Date.now();
   const endTime = (now / 1000) + (breakSeconds);
