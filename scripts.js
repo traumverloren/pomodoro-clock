@@ -57,12 +57,12 @@ function toggleTimer() {
 
 function startTimer() {
   const sessionSeconds = Math.floor(sessionTime * 60);
-  const now = new Date().getTime();
+  const now = Date.now();
   const endTime = (now / 1000) + (sessionSeconds);
   const audio = new Audio("sound/alarm_beep.wav");
 
   timeInterval = setInterval(() => {
-    timeRemaining = Math.ceil(countDown(endTime));
+    const timeRemaining = Math.ceil(countDown(endTime));
 
     if (timeRemaining <= 0) {
       clearInterval(timeInterval);
@@ -76,7 +76,7 @@ function startTimer() {
 
 function startBreakTimer() {
   const breakSeconds = Math.floor(breakTime * 60);
-  const now = new Date().getTime();
+  const now = Date.now();
   const endTime = (now / 1000) + (breakSeconds);
 
   timeInterval = setInterval(() => {
@@ -100,8 +100,8 @@ function updateDisplay(timeRemaining, type) {
   const seconds = Math.floor((timeRemaining % 60));
   const minutes = Math.floor((timeRemaining / 60) % 60 );
   timer.textContent = `${minutes}:${formatSeconds(seconds)}`
-  timer.textContent = `${minutes}:${formatSeconds(seconds)}`
   timerType.textContent = type;
+  document.title = `${type}: ${minutes}:${formatSeconds(seconds)}`;
 }
 
 function formatSeconds(seconds) {
